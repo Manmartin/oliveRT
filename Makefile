@@ -6,7 +6,8 @@ INC = -I ./objects
 
 SRCS = main.cpp
 
-OBJECTS_F = Sphere.cpp
+OBJECTS_F = Sphere.cpp \
+			Plane.cpp
 
 SRCS+= $(addprefix objects/, $(OBJECTS_F))
 

@@ -17,7 +17,7 @@ static bool solveQuadratic( Num const &a, Num const &b, Num const &c, Num  &x0, 
 }
 
 Sphere::Sphere(): center(0), r(0), r2(0) {}
-Sphere::Sphere( Vec const &center, Num const r, Vec const &c, Num const &br ): center(center), r(r), r2(r * r) { 
+Sphere::Sphere( Vec const &center, Num const &r, Vec const &c, Num const &br ): center(center), r(r), r2(r * r) { 
     this->color = c;
     this->brightness = br;
 }
