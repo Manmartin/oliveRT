@@ -9,7 +9,7 @@ class Sphere: public Object {
         Num r, r2;
 
         Sphere(); 
-        Sphere( Vec const &center, Num const &r, Vec const &c, Num const &br = 0 );
+        Sphere( Vec const &center, Num const &r, Vec const &c = 0, Num const &br = 0 );
         Sphere( Sphere const &ref );
         ~Sphere();
 

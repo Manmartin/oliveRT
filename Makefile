@@ -1,13 +1,14 @@
 NAME = raytracer
 
 CXX = clang++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++20 -O3
+CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -O3
 INC = -I ./objects
 
 SRCS = main.cpp
 
 OBJECTS_F = Sphere.cpp \
-			Plane.cpp
+			Plane.cpp \
+			Triangle.cpp
 
 SRCS+= $(addprefix objects/, $(OBJECTS_F))
 

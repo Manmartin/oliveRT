@@ -2,6 +2,7 @@
 
 Plane::Plane(): point(0), normal(0) {}
 Plane::Plane( Vec const &p, Vec const &n, Vec const &c, Num const &br ): point(p), normal(n) { 
+    this->normal.normalice();
     this->color = c;
     this->brightness = br;
 }

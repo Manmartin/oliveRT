@@ -9,7 +9,7 @@ class Plane: public Object {
         Vec normal;
 
         Plane(); 
-        Plane( Vec const &p, Vec const &n, Vec const &c, Num const &br = 0 );
+        Plane( Vec const &p, Vec const &n, Vec const &c = 0, Num const &br = 0 );
         Plane( Plane const &ref );
         ~Plane();
 

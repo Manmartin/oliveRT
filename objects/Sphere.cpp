@@ -29,6 +29,7 @@ Sphere  &Sphere::operator=( Sphere const &ref ) {
     this->r = ref.r;
     this->r2 = ref.r2;
     this->color = ref.color;
+    this->brightness = ref.brightness;
     return *this;
 }
 

@@ -35,7 +35,8 @@ class Vec3 {
             }
             return *this;
         }
-        T   dot( Vec3 const &ref ) const { return x * ref.x + y * ref.y + z * ref.z; }
+        T       dot( Vec3 const &ref ) const { return x * ref.x + y * ref.y + z * ref.z; }
+        Vec3    cross( Vec3 const &v ) const { return Vec3( y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x); }
 
         friend std::ostream &operator<<( std::ostream &o, Vec3 const &ray ) {
             o << ray.x << ' ' << ray.y << ' ' << ray.z;
