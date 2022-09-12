@@ -51,7 +51,7 @@ bool Sphere::intersec( Vec const &origin, Vec const &dir, Num &t ) const {
     return true;
 }
 bool Sphere::getPointInfo( Vec const &point, Vec &normal ) const {
-    normal = point - center;
+    normal = point - this->center;
     normal.normalice();
     return true;
 }

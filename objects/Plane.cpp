@@ -28,6 +28,6 @@ bool Plane::intersec( Vec const &origin, Vec const &dir, Num &t ) const {
 }
 bool Plane::getPointInfo( Vec const &point, Vec &normal ) const {
     (void)point;
-    (void)normal;
+    normal = this->normal;
     return true;
 }

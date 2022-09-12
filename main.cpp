@@ -48,12 +48,20 @@ static bool trace(Vec const &origin, Vec const &dir, vector<shared_ptr<Object co
 }
 
 Vec castRay(Vec const &origin, Vec const &dir, vector<shared_ptr<Object const>> const &objects) {
-    Vec hitColor = 0;
+    Vec hitColor = 0, hitPoint, hitNormal;
     std::shared_ptr<Object const> hitObject = nullptr;
     Num t;
-    if (trace(origin, dir, objects, t, hitObject))
-        hitColor = hitObject->color;
-   return hitColor;
+    if (trace(origin, dir, objects, t, hitObject)) {
+        hitColor = hitObject->color; 
+        hitPoint = origin + dir * t;
+        hitObject->getPointInfo(hitPoint, hitNormal); 
+#if FACING
+        //Facing ratio
+        Num facing = std::max(0.0, (-dir).dot(hitNormal));
+        hitColor = hitColor * facing;
+#endif
+    }
+    return hitColor;
 }
 
 void render(std::vector<std::shared_ptr<Object const>> &objects) {
@@ -84,8 +92,8 @@ int main(void) {
     objects.push_back(make_shared<Sphere const>(Vec(-2, 2, -5), 1, Vec(50/255.0, 155/255.0, 100/255.0)));
     objects.push_back(make_shared<Sphere const>(Vec(0, 0, -2), 1, Vec(129/255.0, 245/255.0, 66/255.0)));
 //    objects.push_back(make_shared<Plane const>(Vec(0, 0, -7), Vec(0, 0, -1), Vec(255/255.0, 255/255.0, 255/255.0)));
-    objects.push_back(make_shared<Triangle const>(Vec(1, 1, -1), Vec(0, 0, -1), Vec(-1, 1, -1), Vec(255/255.0, 255/255.0, 255/255.0)));
-    objects.push_back(make_shared<Plane const>(Vec(0, 0, -7), Vec(0, 1, 1).normalice(), Vec(255/255.0, 100/255.0, 100/255.0)));
+//    objects.push_back(make_shared<Triangle const>(Vec(1, 1, -1), Vec(0, 0, -1), Vec(-1, 1, -1), Vec(255/255.0, 255/255.0, 255/255.0)));
+//    objects.push_back(make_shared<Plane const>(Vec(0, 0, -7), Vec(0, 1, 1).normalice(), Vec(255/255.0, 100/255.0, 100/255.0)));
     render(objects);
     return 0;
 }

@@ -6,6 +6,7 @@
 # include <fstream>
 # include <memory>
 # include <vector>
+# include <algorithm>
 
 # define WIDTH 1000 
 # define HEIGHT 1000

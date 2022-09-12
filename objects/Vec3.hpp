@@ -24,6 +24,7 @@ class Vec3 {
         Vec3    operator+( Vec3 const &ref ) const { return Vec3(x + ref.x, y + ref.y, z + ref.z); }
         Vec3    operator-( Vec3 const &ref ) const { return Vec3(x - ref.x, y - ref.y, z - ref.z); }
         Vec3    operator*( T const &n ) const { return Vec3(x * n, y * n, z * n); }
+        Vec3    operator-( void ) const { return Vec3(-this->x, -this->y, -this->z); }
         
         T       length2( void ) const { return x * x + y * y + z * z; }
         T       length( void ) const { return std::sqrt(this->length2()); }

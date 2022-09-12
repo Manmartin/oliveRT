@@ -39,7 +39,7 @@ bool  Triangle::intersec( Vec const &origin, Vec const &dir, Num &t ) const {
       Num r1 = plane.normal.dot(s1.cross(pv1));
       Num r2 = plane.normal.dot(s2.cross(pv2));
       Num r3 = plane.normal.dot(s3.cross(pv3));
-      return (r1 > 0 && r2 > 0 && r3 > 0) || (r1 < 0 && r2 < 0 && r3 < 0); 
+      return (r1 > 0 && r2 > 0 && r3 > 0) || (r1 < 0 && r2 < 0 && r3 < 0);
    }
    return false;
 }
