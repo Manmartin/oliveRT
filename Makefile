@@ -2,7 +2,7 @@ NAME = raytracer
 
 CXX = clang++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -O3
-INC = -I ./objects
+INC = -I . -I ./objects
 
 SRCS = main.cpp
 
@@ -30,4 +30,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re

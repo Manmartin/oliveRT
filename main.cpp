@@ -1,18 +1,9 @@
-#include <Sphere.hpp>
-#include <Triangle.hpp> 
-#include <fstream>
-#include <memory>
-#include <vector>
-
-#define WIDTH 1000 
-#define HEIGHT 1000
-#define SIZE WIDTH * HEIGHT
-
+#include <raytracer.hpp>
 using std::vector;
 using std::shared_ptr;
 using std::make_shared;
 
-void to_ppm3(Vec *image_data) {
+void to_ppm3(vector<Vec> image_data) {
     std::ofstream image("example.ppm", std::fstream::out | std::fstream::trunc);
     if (!image) {
         std::cerr << "Unable to create image\n";
@@ -26,10 +17,9 @@ void to_ppm3(Vec *image_data) {
         << (int)(255 * std::clamp(image_data[i].y, Num(0), Num(1))) << ' '
         << (int)(255 * std::clamp(image_data[i].z, Num(0), Num(1))) << '\n';
     }
-    image.close();
 }
 
-void to_ppm6(Vec *image_data) {
+void to_ppm6(vector<Vec> image_data) {
     std::ofstream image("./example.ppm", std::ofstream::out | std::ofstream::trunc | std::ofstream::binary);
     if (!image) {
         std::cerr << "Unable to create image\n";
@@ -39,11 +29,10 @@ void to_ppm6(Vec *image_data) {
     image << "P6\n" << WIDTH << " " << HEIGHT << "\n255\n";
     for (unsigned i = 0; i < SIZE; ++i) {
         image 
-        << (unsigned char)(255 *  std::clamp(image_data[i].x, Num(0), Num(1)))
-        << (unsigned char)(255 *  std::clamp(image_data[i].y, Num(0), Num(1)))
-        << (unsigned char)(255 *  std::clamp(image_data[i].z, Num(0), Num(1)));
+        << (unsigned char)(255 * std::clamp(image_data[i].x, Num(0), Num(1)))
+        << (unsigned char)(255 * std::clamp(image_data[i].y, Num(0), Num(1)))
+        << (unsigned char)(255 * std::clamp(image_data[i].z, Num(0), Num(1)));
     }
-    image.close();
 }
 
 static bool trace(Vec const &origin, Vec const &dir, vector<shared_ptr<Object const>> const &objects, Num &tNear, shared_ptr<Object const> &hitObject) {
@@ -58,7 +47,7 @@ static bool trace(Vec const &origin, Vec const &dir, vector<shared_ptr<Object co
     return  hitObject != nullptr;
 }
 
-Vec castRay( Vec const &origin, Vec const &dir, vector<shared_ptr<Object const>> const &objects) {
+Vec castRay(Vec const &origin, Vec const &dir, vector<shared_ptr<Object const>> const &objects) {
     Vec hitColor = 0;
     std::shared_ptr<Object const> hitObject = nullptr;
     Num t;
@@ -68,23 +57,23 @@ Vec castRay( Vec const &origin, Vec const &dir, vector<shared_ptr<Object const>>
 }
 
 void render(std::vector<std::shared_ptr<Object const>> &objects) {
-    Vec             *image = new Vec[SIZE], *pixel = image;
+    vector<Vec>     image(SIZE); 
     Vec             origin = 0;
+    int             pixel = 0;
     Num invWidth = 1 / Num(WIDTH), invHeight = 1 / Num(HEIGHT);
     Num aspectRatio = WIDTH / Num(HEIGHT);
     Num fov = 90;
     Num zoom = std::tan(M_PI * 0.5 * fov / 180);
-    for (unsigned int y = 0; y < HEIGHT; y++) {
-        for (unsigned int x = 0; x < WIDTH; x++,pixel++) {
+    for (unsigned int y = 0; y < HEIGHT; ++y) {
+        for (unsigned int x = 0; x < WIDTH; ++x, ++pixel) {
             Num pixelX = (2 * ((x + 0.5) * invWidth) - 1) * zoom * aspectRatio;
             Num pixelY = (1 - 2 * ((y + 0.5) * invHeight)) * zoom;
             Vec dir(pixelX, pixelY, -1);
             dir.normalice();
-           *pixel = castRay(origin, dir, objects);
+           image[pixel] = castRay(origin, dir, objects);
         }
     }
     to_ppm6(image);
-    delete [] image;
 }
 
 int main(void) {
