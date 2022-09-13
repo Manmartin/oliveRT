@@ -1,15 +1,10 @@
 #ifndef RAYTRACER_HPP
 # define RAYTRACER_HPP
 
-# include <Sphere.hpp>
-# include <Triangle.hpp> 
-# include <fstream>
-# include <memory>
-# include <vector>
-# include <algorithm>
+# include <Scene.hpp>
 
-# define WIDTH 1000 
-# define HEIGHT 1000
-# define SIZE WIDTH * HEIGHT
+// images/
+void toppm3(std::vector<Vec> image_data);
+void toppm6(std::vector<Vec> image_data);
 
 #endif
